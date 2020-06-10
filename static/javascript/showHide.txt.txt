@@ -1,0 +1,24 @@
+
+
+
+
+additional_info_wrapper = document.querySelector('#additional_info_wrapper');
+yesIncludeInfo = document.querySelector('#yesIncludeInfo');
+noIncludeInfo = document.querySelector('#noIncludeInfo');
+yesIncludeInfo.addEventListener('change', (e) => {
+  additional_info_wrapper.classList.remove('hidden');
+});
+noIncludeInfo.addEventListener('change', (e) => {
+  additional_info_wrapper.classList.add('hidden');
+});
+
+area_info_wrapper = document.querySelector('#area_info_wrapper');
+yesIncludeArea = document.querySelector('#yesIncludeArea');
+noIncludeArea = document.querySelector('#noIncludeArea');
+yesIncludeArea.addEventListener('change', (e) => {
+  area_info_wrapper.classList.remove('hidden');
+});
+noIncludeArea.addEventListener('change', (e) => {
+  area_info_wrapper.classList.add('hidden');
+});
+

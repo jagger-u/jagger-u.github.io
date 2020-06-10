@@ -1,0 +1,94 @@
+.intro-guide-container {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  border-radius: $border-radius;
+  left: 25%;
+  top: 30%;
+  z-index: 1000;
+  .guide-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 25px;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    color: #fff;
+    background: #1f7da5;
+    h1 {
+      width: calc(80% - 30px);
+      margin-bottom: 0;
+    }
+    .close {
+      cursor: pointer;
+      color: #fff;
+    }
+    border-bottom: 3px solid #3b3b3b;
+  }
+  .guide-content {
+    padding: 25px;
+    font-size: 18px;
+    // text-align: center;
+    width: 100%;
+    background: #fff;
+    
+    // height: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    // align-content: space-evenly;
+    justify-content: flex-start;
+    // position: relative;
+
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+    ul {
+      // margin-left: 20px;
+      padding-left: 20px;
+    }
+    li {
+      list-style: disc;
+      margin-bottom: 5px;
+    }
+    p {
+      margin-bottom: 0;
+      width: 100%;
+    }
+    .config-btn-group {
+      height: unset;
+    }
+    button {
+      margin-top: 10px;
+      // position: absolute;
+      // bottom: 15px;
+      // right: 15px;
+    }
+  }
+}
+.controls-key {
+  font-size: 15px;
+  border: 2px solid #1f7da5;
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+.cover-all {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.77);
+  height: 100%;
+  width: 100%;
+  z-index: 990;
+}
+
+.hide-tut {
+  display: none;
+}
+
+.config-btn-group {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  button {
+    background: #1f7da5;
+  }
+}

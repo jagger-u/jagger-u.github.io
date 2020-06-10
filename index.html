@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Antivaxx Monitor</title>
+  <link rel="icon" href="./static/images/theicon.png" type="image" sizes="16x16">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+  crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+  crossorigin=""></script>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+
+
+
+
+
+
+
+
+<div id="cover" onclick="hideHelps()" class="cover-all"></div>
+
+<div id="guide-welcome" class="intro-guide-container">
+  <div class="guide-title">
+    <h1>Welcome</h1>
+    <span onclick="hideHelps()" class="close">&times;</span>
+  </div>
+  <div class="guide-content">
+    <ul>
+      <li>The website is modified for presentation purposes. Three pages are working as indicated in <b class="working-link">green blue</b> (<a href="index.html" class="working-link">Intro</a>, <a href="map.html" class="working-link">Map</a>, <a href="./editmap.html" class="working-link">Edit Map</a>).</li>
+      <li>Originally it had some database interactions like querying results and performing CRUD operations.</li>
+      <li>The <a href="https://github.com/jagger-u" class="working-link">source code for the PHP</a> can be found in <a href="https://github.com/jagger-u" class="working-link">GitHub.</a></li>
+    </ul>
+    <div class="config-btn-group">
+      <button onclick="hideHelps()" class="btn btn-info">Finish</button>
+    </div>
+  </div>
+</div>
+
+
+
+<body>
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+<div class="container">
+  <a href="/index.html" class="navbar-brand"><img src="/static/images/logo.png" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a href="/index.html" class="nav-link working-link">Intro</a>
+      </li>
+      <li class="nav-item">
+        <a href="/map.html" class="nav-link working-link">Map</a>
+      </li>
+      <li class="nav-item">
+        <a href="/editmap.html" class="nav-link working-link">Edit Map</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Research</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Communities</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Contact</a>
+      </li>
+    </ul>
+  </div>
+</div>
+</nav>
+<div id="slides" class="carousel slide" data-ride="carousel">
+  <ul class="carousel-indicators">
+    <li data-target="#slides" data-slide-to="0" class="active"></li>
+    <li data-target="#slides" data-slide-to="1"></li>
+    <li data-target="#slides" data-slide-to="2"></li>
+  </ul>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/static/images/earth.jpg" alt="background">
+      <div class="carousel-caption">
+        <h1 class="display-2">Antivaxx</h1>
+        <h3>Find out if your city is safe</h3>
+        <a href="/map.html" class="btn btn-outline-light btn-lg">VIEW MAP</a>
+        <a href="#" class="btn btn-primary btn-lg">Get started</a>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/static/images/earth.jpg" alt="background2">
+      <div class="carousel-caption">
+        <h1 class="display-2">Antivaxx</h1>
+        <h3>Communities and users provide information</h3>
+        <a href="/map.html" class="btn btn-outline-light btn-lg">VIEW MAP</a>
+        <a href="#" class="btn btn-primary btn-lg">Get started</a>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/static/images/earth.jpg" alt="background3">
+      <div class="carousel-caption">
+        <h1 class="display-2">Antivaxx</h1>
+        <h3>We help you make good decisions</h3>
+        <a href="/map.html" class="btn btn-outline-light btn-lg">VIEW MAP</a>
+        <a href="#" class="btn btn-primary btn-lg">Get started</a>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#slides" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#slides" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+
+<div class="container padding">
+  <div class="row welcome text-center">
+    <div class="col-12">
+      <h1 class="display-4">Here's a short tutorial</h1>
+    </div>
+    <hr>
+  </div>
+</div>
+
+
+
+
+
+<div class="container padding">
+  <div class="row padding">
+    <div class="col-md-12 col-lg-6">
+      <h2>Enter your location</h2>
+      <p>The interface will ask you for the city you want to view. You can go to the <b>Global Monitor</b> to see the latest distribution of groups. After that, select a street in which the website will calculate the risks and provide the available infographics.</p>
+      <p>If you want to provide some information, you can sign up as a user.</p>
+      <br>
+      <a href="#" class="btn btn-primary">Learn More</a>
+    </div>
+    <div class="col-lg-6">
+      <div id="mapid" style="width: 100%; height: 50vh;"></div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="container padding">
+  <div class="row text-center">
+    <div class="col-12">
+      <h1 class="display-4">Current hotspots</h1>
+    </div>
+    <hr>
+  </div>
+</div>
+
+<div class="container padding">
+  <div class="row padding">
+    <div class="col-md-3">
+      <div class="card">
+        <div class="city-thumb" style="background-image: url(/static/images/cityABC.jpg);"></div>
+        <div class="card-body">
+          <h4 class="card-title">City ABC</h4>
+          <p class="card-text">This has the most groups. Basically the headquarters.</p>
+          <a href="#" class="btn btn-outline-secondary">Go to area</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="city-thumb" style="background-image: url(/static/images/cityXYZ.jpg);"></div>
+        <div class="card-body">
+          <h4 class="card-title">City XYZ</h4>
+          <p class="card-text">A neighbor of ABC, second largest so far.</p>
+          <a href="#" class="btn btn-outline-secondary">Go to area</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="city-thumb" style="background-image: url(/static/images/cityDEF.jpg);"></div>
+        <div class="card-body">
+          <h4 class="card-title">City DEF</h4>
+          <p class="card-text">The highest in Asia so far. It is strange.</p>
+          <a href="#" class="btn btn-outline-secondary">Go to area</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="city-thumb" style="background-image: url(/static/images/cityKLM.jpg);"></div>
+        <div class="card-body">
+          <h4 class="card-title">City KLM</h4>
+          <p class="card-text">This South American city has some communities.</p>
+          <a href="#" class="btn btn-outline-secondary">Go to area</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container padding">
+  <div class="row padding">
+    <div class="col-lg-6">
+      <h2>If you are a community organization</h2>
+      <p>You need to create an account where we will need to verify your jurisdiction. The simplest but not the best way is to provide us with a @gov email when signing up.</p>
+      <p>There are various information you can provide: images, comments, and most importantly location addresses. You will be able to select areas with our interface. With these data, we will be able to calculate the risk for anyone concerned about a particular location.</p>
+      <p>Community organizations like you have the greatest impact on this platform as you provide the necessary reliable information about suspect groups. We rely on the data you provide.</p>
+      <br>
+    </div>
+    <div class="col-lg-6">
+      <div id="mapid2" style="width: 100%; height: 50vh;"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container padding">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Platform</h5>
+        <ul>
+          <li><a href="#">Antivaxx Map</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Broad overview</a></li>
+          <li><a href="#">Methodology</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#">Troubleshooting</a></li>
+          <li><a href="#">Report false information</a></li>
+          <li><a href="#">Frequently asked questions</a></li>
+          <li><a href="#">Get help</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Team</h5>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contribute</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Donate</a></li>
+        </ul>
+      </div>
+      <div class="col-12 text-center mt-4">
+        <h5>&copy; antivaxxmonitor.com</h5>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+
+<script src="/static/javascript/tutorial.js"></script>
+<script src="/static/javascript/map/setup.js"></script>
+
+<script>
+  city_budapest = [47.499227735163,19.049263000488278];
+  mymap = setup('mapid', city_budapest,14);
+  mymap2 = setup('mapid2', city_budapest,5);
+</script>
+
+
+</body>
+</html>

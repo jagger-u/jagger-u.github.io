@@ -1,0 +1,60 @@
+@media (max-width: 768px) {
+  .navbar {
+    li {
+      padding-right: 20px;
+      background-color: lighten($greenblue-light, 15%);
+      border-radius: 5px;
+      margin: 5px 0;
+      padding-left: 15px;
+      &:hover {
+        background-color: darken($greenblue-light, 15%);
+      }
+    }  
+  }
+  .carousel-caption {
+    top: 45%;
+    h1 {
+      font-size: 350%;
+    }
+    h3 {
+      font-size: 140%;
+      font-weight: 400;
+      padding-bottom: 0.2rem;
+    }
+    .btn {
+      font-size: 95%;
+      padding: 8px 14px;
+    }
+  }
+  .display-4 {
+    font-size: 200%;
+  }
+}
+@media (max-width: 568px) {
+  .navbar {
+    .navbar-brand {
+      img {
+        max-height: 50px;
+      }
+    }
+  }
+  .carousel-caption {
+    top: 40%;
+    h1 {
+      font-size: 250%;
+    }
+    h3 {
+      font-size: 110%;
+    }
+    .btn {
+      font-size: 90%;
+      padding: 4px 8px;
+    }
+  }
+  .carousel-indicators {
+    display: none;
+  }
+  .display-4 {
+    font-size: 160%;
+  }
+}

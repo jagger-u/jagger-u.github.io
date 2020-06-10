@@ -1,0 +1,23 @@
+
+
+// $button-color: #6648b1;
+$button-color: #1f7da5;
+$button-hover: darken(#1f7da5, 5%);
+$footer-background: #3f3f3f;
+$footer-text: #d5d5d5;
+$greenblue-light: #d5f1ee;
+
+
+$dark-blue: #1d1c44;
+$general-background: #33bbae;
+$border-radius: 5px;
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: roboto, sans-serif;
+  color: #222;
+}
+.bg-light {
+  background-color: #fff !important; /* need to fix our logo */
+}

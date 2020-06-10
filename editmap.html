@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Antivaxx Monitor - Map</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+  crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+  crossorigin=""></script>
+
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+<div class="container">
+  <a href="/index.html" class="navbar-brand"><img src="/static/images/logo.png" alt=""></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarResponsive">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a href="/index.html" class="nav-link working-link">Intro</a>
+      </li>
+      <li class="nav-item">
+        <a href="/map.html" class="nav-link working-link">Map</a>
+      </li>
+      <li class="nav-item">
+        <a href="/editmap.html" class="nav-link working-link">Edit Map</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Research</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Communities</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">Contact</a>
+      </li>
+    </ul>
+  </div>
+</div>
+</nav>
+
+<div id="cover" onclick="hideHelps()" class="cover-all"></div>
+
+<div id="guide-welcome" class="intro-guide-container">
+  <div class="guide-title">
+    <h1>Welcome</h1>
+    <span onclick="hideHelps()" class="close">&times;</span>
+  </div>
+  <div class="guide-content">
+    <ul>
+      <li>The website has been modified for presentation purposes. 
+        Originally it is written in PHP and has a different layout.</li>
+      <li>This page is to be used for the admin to create, edit, update, delete map markers.
+        Although functionality is limited, you can try creating some markers.</li>
+      <li>Controls: First <div class="btn btn-sm btn-primary">Search</div> a city. Press <b class="controls-key">W</b> to enter edit mode. A cross hair should appear.
+        Use <b class="controls-key">Right click</b> to place marker on the map.
+        Press <b class="controls-key">D</b> to exit.</li>
+      <li>The marker will be stored in local storage, so you can refresh and see added markers.</li>
+    </ul>
+    <div class="config-btn-group">
+      <button onclick="hideHelps()" class="btn btn-info">Finish</button>
+    </div>
+  </div>
+</div>
+
+
+<section class="map-present pt-5">
+  <div class="container-fluid padding content-present">
+    <div class="row padding">
+      <div id="show_col" class="col-lg-9">
+        <div id="show_map"></div>
+      </div>
+      <div class="col-lg-3">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <form id="city-form">
+              <div class="form-group">
+                <label for="city-input">Select city</label>
+                <select id="city-input" class="form-control">
+                  <option value="Budapest">Budapest, Hungary</option>
+                  <option value="Pecs">Pecs, Hungary</option>
+                  <option value="Chicago">Chicago, USA</option>
+                </select>
+                <!-- <input id="city-input" type="text" class="form-control"> -->
+              </div>
+              <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#cityModal">
+                Add city
+              </button>
+              <input type="submit" value="Search" class="btn btn-primary btn-sm">            
+            </form>
+            <div id="cityModal" class="modal" tabindex="-1" role="dialog">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Add city details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label for="city-name">City name</label>
+                      <input id="city-name" class="form-control" type="text" placeholder="e.g. City ABC (no special characters!)">
+                    </div>
+                    <div class="form-group">
+                      <label for="city-country">Country</label>
+                      <input id="city-country" class="form-control" type="text" placeholder="e.g. Country ABC">
+                    </div>
+                    <div class="form-group">
+                      <label for="city-latitude">Latitude</label>
+                      <input id="city-latitude" class="form-control" type="text" placeholder="e.g. 45.0000000">
+                    </div>
+                    <div class="form-group">
+                      <label for="city-longitude">Longitude</label>
+                      <input id="city-longitude" class="form-control" type="text" placeholder="e.g. 45.0000000">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Add city</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </li>
+          <li class="list-group-item">
+            <b>City name:</b>
+            <b><span id="coord-present-city"></span></b>
+          </li>
+          <li class="list-group-item">
+            Latitude:
+            <span id="coord-present-lat"></span>
+          </li>
+          <li class="list-group-item">
+            Longitude:
+            <span id="coord-present-long"></span>
+          </li>
+          <li class="list-group-item">
+            Number of cases:
+            <span class="badge badge-primary badge-pill"></span>
+          </li>
+          <li class="list-group-item">
+            Average risk:
+            <span class="badge badge-warning badge-pill"></span>
+          </li>
+          <li class="list-group-item">
+            Latest update:
+            <div>
+              <span></span>
+            </div>
+          </li>
+        </ul>
+        <br>
+        <!-- Button trigger modal -->
+        <button id="disp_button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#tableModal">
+          Display
+        </button>
+
+
+
+
+
+
+
+
+        
+        <!-- Modal (Table)-->
+        <div class="modal fade" id="tableModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">List of entries</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table id="points_table" class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Latitude</th>
+                      <th scope="col">Longitude</th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <button id="help_button" type="button" class="btn btn-light" data-toggle="modal" data-target="#helpModal">
+          Help
+        </button>
+
+        <!-- Modal (Help) -->
+        <div class="modal" id="helpModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Instructions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Press "w" to <span class="text-primary">enter</span> edit mode.</p>
+                <p>Right click to place marker. Click on marker to add details. You can then decide to save the list of markers.</p>
+                <p>Press "d" to <span class="text-primary">exit</span> edit mode.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<footer>
+  <div class="container padding">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>Platform</h5>
+        <ul>
+          <li><a href="#">Antivaxx Map</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Broad overview</a></li>
+          <li><a href="#">Methodology</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#">Troubleshooting</a></li>
+          <li><a href="#">Report false information</a></li>
+          <li><a href="#">Frequently asked questions</a></li>
+          <li><a href="#">Get help</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5>Team</h5>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contribute</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Donate</a></li>
+        </ul>
+      </div>
+      <div class="col-12 text-center mt-4">
+        <h5>&copy; antivaxxmonitor.com</h5>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<script src="/static/javascript/tutorial.js"></script>
+<script src="/static/javascript/map/setup.js"></script>
+<script src="/static/javascript/map/global.js"></script>
+<script src="/static/javascript/map/mapedit.js"></script>
+<script>
+document.querySelector('#city-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.querySelector('#city-input').value;
+  result = mapUI.jumpToCity(name);
+  mymap = result[0];
+  city_id = result[1];
+  mapUI.displayMarkers(mymap, city_id);
+  mapUI.initializeMap(mymap.getCenter().lat, mymap.getCenter().lng);
+  mymap.on('mousemove', mapUI.showCoords);
+  mymap.on('keypress', mapUI.startPlacing);
+  mymap.on('contextmenu', mapUI.placeMarkers);
+  mymap.on('keypress', mapUI.endPlacing);
+});
+</script>
+
+
+</body>
+</html>
